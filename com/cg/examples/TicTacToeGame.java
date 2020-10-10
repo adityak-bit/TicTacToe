@@ -53,7 +53,7 @@ public class TicTacToeGame {
 	}
 
 	private static char chooseUserLetter(Scanner userInput) {
-		System.out.println("Choose your letter X or O: ");
+		System.out.println("Choose your (USER) letter X or O: ");
 		return userInput.next().toUpperCase().charAt(0);
 	}
 
