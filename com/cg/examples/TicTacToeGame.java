@@ -36,7 +36,7 @@ public class TicTacToeGame {
 	private static void replaceIndex(char board[][], char find, char replace) {
 		for (int i = 0; i < 3; i++) {
 			for (int j = 0; j < 3; j++) {
-				if (board[i][j] == find) {
+				if (board[i][j] == find && board[i][j] != 'X' && board[i][j] != 'O') {
 					board[i][j] = replace;
 					return;
 				}
