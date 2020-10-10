@@ -29,14 +29,27 @@ public class TicTacToeGame {
 		char indexChoice;
 		Player player = getWhoStartsFirst();
 
-		for (int i = 0; i < 3; i++) {
+		for (int i = 0; i < 4; i++) {
+
 			System.out.println(player + " starts first");
 			System.out.println("Enter index choice from 1-9: ");
 			indexChoice = in.next().charAt(0);
 			replaceIndex(board, indexChoice, player == Player.USER ? userLetter : computerLetter);
 			displayBoard(board);
+
+			System.out.println("Other player turn: ");
+			System.out.println("Enter index choice from 1-9: ");
+			indexChoice = in.next().charAt(0);
+			replaceIndex(board, indexChoice, player == Player.USER ? computerLetter : userLetter);
+			displayBoard(board);
 		}
-		System.out.println(player+" wins: "+isWinner(board,player == Player.USER ? userLetter : computerLetter));
+		System.out.println(player + " starts first");
+		System.out.println("Enter index choice from 1-9: ");
+		indexChoice = in.next().charAt(0);
+		replaceIndex(board, indexChoice, player == Player.USER ? userLetter : computerLetter);
+		displayBoard(board);
+		System.out.println("Winning player is " + Player.USER + " : " + isWinner(board, userLetter));
+		System.out.println("Winning player is " + Player.COMPUTER + " : " + isWinner(board, computerLetter));
 	}
 
 	private static char chooseUserLetter(Scanner userInput) {
