@@ -14,23 +14,53 @@ public class TicTacToeGame {
 	}
 
 	public static void main(String[] args) {
-		System.out.println("Welcome to Tic Tac Toe Game");
-		int counter = 1;
-		for (int i = 0; i < 3; i++) {
-			for (int j = 0; j < 3; j++) {
-				board[i][j] = Character.forDigit(counter++, 11);
-			}
-		}
-
+		System.out.println("Want to play game ? \n Enter true to play \n Enter false to exit");
+		boolean b;
 		in = new Scanner(System.in);
-		Scanner userInput = new Scanner(System.in);
-		char userLetter = chooseUserLetter(userInput);
-		char computerLetter = (userLetter == 'X') ? 'O' : 'X';
-		char indexChoice;
-		Player player = getWhoStartsFirst();
+		b = in.nextBoolean();
+		while (b == true) {
+			System.out.println("Welcome to Tic Tac Toe Game");
+			int counter = 1;
+			for (int i = 0; i < 3; i++) {
+				for (int j = 0; j < 3; j++) {
+					board[i][j] = Character.forDigit(counter++, 11);
+				}
+			}
 
-		for (int i = 0; i < 4; i++) {
+			Scanner userInput = new Scanner(System.in);
+			char userLetter = chooseUserLetter(userInput);
+			char computerLetter = (userLetter == 'X') ? 'O' : 'X';
+			char indexChoice;
+			Player player = getWhoStartsFirst();
 
+			for (int i = 0; i < 4; i++) {
+
+				System.out.println(player + " starts first");
+				System.out.println("Enter index choice from 1-9: ");
+				indexChoice = in.next().charAt(0);
+				replaceIndex(board, indexChoice, player == Player.USER ? userLetter : computerLetter);
+				displayBoard(board);
+
+				if (isWinner(board, 'X') || isWinner(board, 'O')) {
+					System.out.println("We have a winner: " + player);
+					System.out.println("Want to play another game ?");
+					b = in.nextBoolean();
+					return;
+				}
+
+				System.out.println("Other player turn: ");
+				System.out.println("Enter index choice from 1-9: ");
+				indexChoice = in.next().charAt(0);
+				replaceIndex(board, indexChoice, player == Player.USER ? computerLetter : userLetter);
+				displayBoard(board);
+
+				if (isWinner(board, 'X') || isWinner(board, 'O')) {
+					System.out.println("We have a winner: other player");
+					System.out.println("Want to play another game ?");
+					b = in.nextBoolean();
+					return;
+				}
+			}
 			System.out.println(player + " starts first");
 			System.out.println("Enter index choice from 1-9: ");
 			indexChoice = in.next().charAt(0);
@@ -39,33 +69,15 @@ public class TicTacToeGame {
 
 			if (isWinner(board, 'X') || isWinner(board, 'O')) {
 				System.out.println("We have a winner: " + player);
-				return;
+
+			} else {
+				System.out.println("Game is drawn");
 			}
-
-			System.out.println("Other player turn: ");
-			System.out.println("Enter index choice from 1-9: ");
-			indexChoice = in.next().charAt(0);
-			replaceIndex(board, indexChoice, player == Player.USER ? computerLetter : userLetter);
-			displayBoard(board);
-
-			if (isWinner(board, 'X') || isWinner(board, 'O')) {
-				System.out.println("We have a winner: other player");
-				return;
-			}
+			System.out.println("Winning player is " + Player.USER + " : " + isWinner(board, userLetter));
+			System.out.println("Winning player is " + Player.COMPUTER + " : " + isWinner(board, computerLetter));
+			System.out.println("Want to play another game ?");
+			b = in.nextBoolean();
 		}
-		System.out.println(player + " starts first");
-		System.out.println("Enter index choice from 1-9: ");
-		indexChoice = in.next().charAt(0);
-		replaceIndex(board, indexChoice, player == Player.USER ? userLetter : computerLetter);
-		displayBoard(board);
-
-		if (isWinner(board, 'X') || isWinner(board, 'O')) {
-			System.out.println("We have a winner: " + player);
-		} else {
-			System.out.println("Game is drawn");
-		}
-		System.out.println("Winning player is " + Player.USER + " : " + isWinner(board, userLetter));
-		System.out.println("Winning player is " + Player.COMPUTER + " : " + isWinner(board, computerLetter));
 	}
 
 	private static char chooseUserLetter(Scanner userInput) {
@@ -104,5 +116,4 @@ public class TicTacToeGame {
 			System.out.println();
 		}
 	}
-
 }
