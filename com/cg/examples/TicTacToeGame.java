@@ -37,17 +37,33 @@ public class TicTacToeGame {
 			replaceIndex(board, indexChoice, player == Player.USER ? userLetter : computerLetter);
 			displayBoard(board);
 
+			if (isWinner(board, 'X') || isWinner(board, 'O')) {
+				System.out.println("We have a winner: " + player);
+				return;
+			}
+
 			System.out.println("Other player turn: ");
 			System.out.println("Enter index choice from 1-9: ");
 			indexChoice = in.next().charAt(0);
 			replaceIndex(board, indexChoice, player == Player.USER ? computerLetter : userLetter);
 			displayBoard(board);
+
+			if (isWinner(board, 'X') || isWinner(board, 'O')) {
+				System.out.println("We have a winner: other player");
+				return;
+			}
 		}
 		System.out.println(player + " starts first");
 		System.out.println("Enter index choice from 1-9: ");
 		indexChoice = in.next().charAt(0);
 		replaceIndex(board, indexChoice, player == Player.USER ? userLetter : computerLetter);
 		displayBoard(board);
+
+		if (isWinner(board, 'X') || isWinner(board, 'O')) {
+			System.out.println("We have a winner: " + player);
+		} else {
+			System.out.println("Game is drawn");
+		}
 		System.out.println("Winning player is " + Player.USER + " : " + isWinner(board, userLetter));
 		System.out.println("Winning player is " + Player.COMPUTER + " : " + isWinner(board, computerLetter));
 	}
